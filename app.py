@@ -6,8 +6,20 @@ import os
 # Set Page Config
 st.set_page_config(page_title="Life Expectancy Predictor", layout="wide")
 
-with open('life_expectancy_full_pipeline.pkl', 'rb') as file:
-    pipeline = pickle.load(file)
+@st.cache_resource
+def load_model():
+    model_path = 'life_expectancy_full_pipeline.pkl'
+    try:
+        with open(model_path, 'rb') as f:
+            return pickle.load(f)
+    except AttributeError as e:
+        st.error(f"Version Mismatch Error: The scikit-learn version on Streamlit doesn't match your local version. {e}")
+        return None
+    except Exception as e:
+        st.error(f"Loading Error: {e}")
+        return None
+
+pipeline = load_model()
 
 # 2. Country List
 countries = [
