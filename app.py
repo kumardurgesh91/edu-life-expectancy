@@ -9,8 +9,6 @@ st.set_page_config(page_title="Life Expectancy Predictor", layout="wide")
 with open('life_expectancy_full_pipeline.pkl', 'rb') as file:
     pipeline = pickle.load(file)
 
-pipeline = load_model()
-
 # 2. Country List
 countries = [
     "Afghanistan", "Albania", "Algeria", "Angola", "Antigua and Barbuda", "Argentina", 
