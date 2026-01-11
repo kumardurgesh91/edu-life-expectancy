@@ -4,7 +4,78 @@ import pickle
 import os
 
 # Set Page Config
-st.set_page_config(page_title="Life Expectancy Predictor", layout="wide")
+st.set_page_config(
+    page_title="Life Expectancy Predictor", 
+    layout="wide",
+    page_icon="🌍"
+)
+
+# Custom CSS for background and styling
+st.markdown("""
+<style>
+    .main {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-attachment: fixed;
+    }
+    .stApp {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-attachment: fixed;
+    }
+    .css-1d391kg {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 10px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .stButton>button {
+        background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 30px;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    .disclaimer {
+        background: linear-gradient(45deg, #FF9FF3, #F368E0);
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        font-weight: bold;
+        margin: 20px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .header-container {
+        text-align: center;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    .metric-container {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# IMPORTANT DISCLAIMER
+st.markdown("""
+<div class="disclaimer">
+    ⚠️ IMPORTANT DISCLAIMER: This is a TEST/DEMO Project Only ⚠️<br>
+</div>
+""", unsafe_allow_html=True)
 
 @st.cache_resource
 def load_model():
@@ -58,38 +129,68 @@ countries = [
 ]
 
 # 3. UI Header
-st.title("🌍 Global Life Expectancy Predictor")
-st.markdown("Enter country data below to see the predicted average life expectancy.")
+st.markdown("""
+<div class="header-container">
+    <h1 style="color: #2C3E50; margin-bottom: 10px;">🌍 Global Life Expectancy Predictor 🏥</h1>
+    <p style="color: #34495E; font-size: 18px; margin-bottom: 20px;">
+        🔬 Advanced AI-powered health analytics for predicting life expectancy worldwide
+    </p>
+    <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px;">
+        <div style="text-align: center;">
+            <span style="font-size: 40px;">📊</span><br>
+            <small style="color: #7F8C8D;">Data-Driven</small>
+        </div>
+        <div style="text-align: center;">
+            <span style="font-size: 40px;">🤖</span><br>
+            <small style="color: #7F8C8D;">AI Powered</small>
+        </div>
+        <div style="text-align: center;">
+            <span style="font-size: 40px;">🌐</span><br>
+            <small style="color: #7F8C8D;">Global Insights</small>
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("### 📝 Enter country data below to see the predicted average life expectancy")
 
 # 4. Input Layout
-with st.container():
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.header("Demographics")
-        country_selected = st.selectbox("Select Country", countries, index=countries.index("United States of America"))
-        status = st.radio("Economic Status", ["Developing", "Developed"], index=1)  # Developed
-        year = st.slider("Year", 2000, 2026, 2015)
-        schooling = st.number_input("Years of Schooling", 0.0, 20.0, 13.0)
-        income_comp = st.number_input("Income Composition", 0.0, 1.0, 0.8)
+st.markdown("## 🎯 Prediction Parameters")
 
-    with col2:
-        st.header("Health Factors")
-        adult_mortality = st.number_input("Adult Mortality (per 1000)", 0, 300, 13)  # Low for developed country
-        underfive_deaths = st.number_input("Under-five Deaths (per 1000)", 0, 200, 0)
-        hiv_aids = st.number_input("HIV/AIDS Rate", 0.0, 10.0, 0.1)
-        hepatitis_b = st.slider("Hepatitis B Immunization %", 0, 100, 80)
-        thinness_119_years = st.number_input("Thinness 1-19 years (%)", 0.0, 50.0, 0.8)
-        bmi = st.slider("Average BMI", 10.0, 100.0, 69.0)
-        alcohol = st.number_input("Alcohol Consumption", 0.0, 25.0, 4.0)
 
-    with col3:
-        st.header("Economics & Immunization")
-        gdp = st.number_input("GDP (USD)", 0, 150000, 60000)  # Approximate US GDP per capita
-        total_expenditure = st.number_input("Total Expenditure %", 0.0, 100.0, 3.0)
-        measles = st.number_input("Measles cases", 0, 1000, 188)
-        polio = st.slider("Polio Immunization %", 0, 100, 93)
-        diphtheria = st.slider("Diphtheria Immunization %", 0, 100, 93)
+# Input fields in 4 columns to reduce scrolling
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown("### 👥 Demographics")
+    country_selected = st.selectbox("🌍 Country", countries, index=countries.index("United States of America"))
+    status = st.radio("🏗️ Status", ["Developing", "Developed"], index=1)
+    year = st.slider("📅 Year", 2000, 2026, 2015)
+    schooling = st.number_input("🎓 Schooling", 0.0, 20.0, 13.0)
+
+with col2:
+    st.markdown("### 🏥 Health")
+    adult_mortality = st.number_input("💀 Adult Mort.", 0, 300, 13)
+    underfive_deaths = st.number_input("👶 Under-5 Deaths", 0, 200, 0)
+    hiv_aids = st.number_input("🦠 HIV/AIDS", 0.0, 10.0, 0.1)
+    hepatitis_b = st.slider("💉 Hep B %", 0, 100, 80)
+
+with col3:
+    st.markdown("### ⚖️ Health Cont.")
+    thinness_119_years = st.number_input("⚖️ Thinness 1-19%", 0.0, 50.0, 0.8)
+    bmi = st.slider("⚖️ BMI", 10.0, 100.0, 69.0)
+    alcohol = st.number_input("🍺 Alcohol", 0.0, 25.0, 4.0)
+    income_comp = st.number_input("💰 Income Comp.", 0.0, 1.0, 0.8)
+
+with col4:
+    st.markdown("### 💼 Economics")
+    gdp = st.number_input("💵 GDP", 0, 150000, 60000)
+    total_expenditure = st.number_input("💸 Total Exp %", 0.0, 100.0, 3.0)
+    measles = st.number_input("🦠 Measles", 0, 1000, 188)
+    polio = st.slider("💉 Polio %", 0, 100, 93)
+    diphtheria = st.slider("💉 Diphtheria %", 0, 100, 93)
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 # 5. Prediction
 st.divider()
