@@ -1,13 +1,18 @@
 import streamlit as st
 import pandas as pd
-import joblib
+import pickle
+import os
 
 # Set Page Config
 st.set_page_config(page_title="Life Expectancy Predictor", layout="wide")
 
 # 1. Load the Model Pipeline
 def load_model():
-    return joblib.load('life_expectancy_full_pipeline.pkl')
+    model_path = os.path.join(os.path.dirname(__file__), 'life_expectancy_full_pipeline.pkl')
+    
+    # Load using 'rb' (read binary) mode
+    with open(model_path, 'rb') as f:
+        return pickle.load(f)
 
 pipeline = load_model()
 
