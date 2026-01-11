@@ -6,7 +6,7 @@ import os
 # Set Page Config
 st.set_page_config(page_title="Life Expectancy Predictor", layout="wide")
 
-with open('medical_insurance_model.pkl', 'rb') as file:
+with open('life_expectancy_full_pipeline.pkl', 'rb') as file:
     pipeline = pickle.load(file)
 
 pipeline = load_model()
