@@ -6,7 +6,6 @@ import joblib
 st.set_page_config(page_title="Life Expectancy Predictor", layout="wide")
 
 # 1. Load the Model Pipeline
-@st.cache_resource
 def load_model():
     return joblib.load('life_expectancy_full_pipeline.pkl')
 
